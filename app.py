@@ -32,9 +32,6 @@ st.set_page_config(
     layout="wide",
 )
 
-if "nav_to" not in st.session_state:
-    st.session_state.nav_to = None
-
 st.markdown("""
 <style>
     .stApp { background: #001942; }
@@ -330,10 +327,8 @@ with st.sidebar:
          "Inventory health", "Forecast", "S&OP Scorecard"],
         label_visibility="collapsed",
         index=0,
+        key="page_radio",
     )
-    if st.session_state.nav_to:
-        explorer_page = st.session_state.nav_to
-        st.session_state.nav_to = None
     st.divider()
     boardroom = st.toggle("Boardroom mode", help="Clean, presentation-ready view")
     st.caption("Built for the Careem challenge")
@@ -449,7 +444,7 @@ def _display_mood_meter():
         )
     with btn_col:
         if st.button(":material/smart_toy:", help="Jump to the War Room", key="mood_to_chat", use_container_width=True):
-            st.session_state.nav_to = "Talk to Careem"
+            st.session_state.page_radio = "Talk to Careem"
             st.rerun()
         st.caption("Chat with agents")
 
