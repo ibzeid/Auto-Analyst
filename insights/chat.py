@@ -444,8 +444,12 @@ INITIAL_BRIEFING_USER_MESSAGE = (
 
 
 def compute_careem_mood(anomalies, scorecard, inv, flags, tiered):
-    """Return Careem's current mood (emoji, label, tooltip) based on data health."""
-    mood = {"emoji": "😎", "label": "Chilling", "tooltip": "Numbers look solid. Careem is relaxed."}
+    """Return Careem's current mood with diagnosis and next-step suggestion."""
+    mood = {
+        "emoji": "😎",
+        "label": "Chilling",
+        "suggestion": "All metrics look healthy. Careem is ready for your questions.",
+    }
 
     anomaly_rate = anomalies.get("anomaly_rate", 0) if anomalies else 0
 
@@ -468,6 +472,7 @@ def compute_careem_mood(anomalies, scorecard, inv, flags, tiered):
 
     critical_flags = 0
     high_flags = 0
+    total_flags = len(flags) if flags else 0
     if flags:
         for f in flags:
             severity = f.get("severity", f.get("risk", "")).lower()
@@ -476,37 +481,63 @@ def compute_careem_mood(anomalies, scorecard, inv, flags, tiered):
             elif "high" in severity or "s2" in severity:
                 high_flags += 1
 
+    s1_count = len(tiered.get("s1", [])) if tiered else 0
+
     if critical_flags >= 4 or anomaly_rate > 25:
         mood = {
             "emoji": "🤯",
-            "label": "Can\'t unsee this",
-            "tooltip": f"{critical_flags} critical flags, {anomaly_rate}% anomaly rate. It's bad.",
+            "label": "Can't unsee this",
+            "suggestion": (
+                f"{critical_flags} critical flags, {s1_count} S1 items, "
+                f"{anomaly_rate}% anomaly days. "
+                "Go to Inventory Health → filter S1 Critical Items. "
+                "Then ask Careem: \"Run a full risk assessment.\""
+            ),
         }
     elif critical_flags >= 2 or anomaly_rate > 20 or avg_service < 80:
         mood = {
             "emoji": "😤",
             "label": "Stressed",
-            "tooltip": f"Multiple critical flags and service below 80%. Careem is not happy.",
+            "suggestion": (
+                f"{critical_flags} critical flags, service at {avg_service:.0f}%. "
+                "Check Inventory Health for the S1 items table. "
+                "Ask Careem: \"Which items should I address first?\""
+            ),
         }
     elif high_flags >= 5 or anomaly_rate > 10 or health_pct < 50:
         mood = {
             "emoji": "😬",
             "label": "Concerned",
-            "tooltip": f"Several flags raised. Health at {health_pct:.0f}%. Keep an eye on this.",
+            "suggestion": (
+                f"{high_flags} high-risk flags, health at {health_pct:.0f}%. "
+                "Review the S&OP Scorecard for red items. "
+                "Ask Careem: \"Show me the revenue-at-risk breakdown.\""
+            ),
         }
     elif anomaly_rate > 5 or health_pct < 70 or avg_service < 95:
         mood = {
             "emoji": "😐",
             "label": "Cautious",
-            "tooltip": f"Some yellow flags. Health at {health_pct:.0f}%. Worth a closer look.",
+            "suggestion": (
+                f"Health at {health_pct:.0f}%, {anomaly_rate}% anomaly days. "
+                "Check the Forecast page for demand trends. "
+                "Ask Careem: \"What should I keep an eye on?\""
+            ),
         }
     elif health_pct < 85:
         mood = {
             "emoji": "🙂",
             "label": "Optimistic",
-            "tooltip": f"Mostly green. Health at {health_pct:.0f}%. A few things to watch.",
+            "suggestion": (
+                f"Health at {health_pct:.0f}% — solid but not perfect. "
+                "A few items in amber. Ask Careem: \"Any early warnings?\""
+            ),
         }
 
+    mood["total_flags"] = total_flags
+    mood["critical_flags"] = critical_flags
+    mood["health_pct"] = health_pct
+    mood["anomaly_rate"] = anomaly_rate
     return mood
 
 

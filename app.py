@@ -424,21 +424,17 @@ def _display_mood_meter():
         "😎": "#D6FFEA", "🙂": "#E8F8EE", "😐": "#FFF3CD",
         "😬": "#FFE0B2", "😤": "#FFCDD2", "🤯": "#F8D7DA",
     }
-    mood_msg = {
-        "😎": "Careem is chilling. The numbers are solid.",
-        "🙂": "Careem is cautiously optimistic. A few things to watch.",
-        "😐": "Careem is keeping an eye on things. Worth a closer look.",
-        "😬": "Careem is concerned. Some flags need your attention, Captain.",
-        "😤": "Careem is stressed. This needs your attention. Now.",
-        "🤯": "Careem has seen things he can't unsee. Sit down, Captain.",
-    }
+    suggestion = mood.get("suggestion", "")
     bg = mood_bg.get(mood["emoji"], "#D6FFEA")
-    msg = mood_msg.get(mood["emoji"], "")
     st.markdown(
         f'<div style="background:{bg};border-radius:8px;padding:0.5rem 1rem;margin-bottom:0.5rem;'
-        f'display:flex;align-items:center;gap:0.5rem;font-size:0.95rem;color:#001942;">'
+        f'color:#001942;">'
+        f'<div style="display:flex;align-items:center;gap:0.5rem;font-size:0.95rem;">'
         f'<span style="font-size:1.4rem;">{mood["emoji"]}</span>'
-        f'<span><strong>{mood["label"]}</strong> — {msg}</span>'
+        f'<span><strong>{mood["label"]}</strong></span>'
+        f'</div>'
+        f'<div style="font-size:0.82rem;margin-top:0.2rem;line-height:1.45;'
+        f'padding-left:2.2rem;">{suggestion}</div>'
         f'</div>',
         unsafe_allow_html=True,
     )
