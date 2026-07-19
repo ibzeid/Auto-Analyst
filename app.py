@@ -470,8 +470,6 @@ if explorer_page == "Overview":
             icon=":material/warning:",
         )
 
-    _display_mood_meter()
-
     st.markdown(
         '<div style="background: linear-gradient(135deg, #0A2A52 0%, #0F3460 100%);'
         'border-left: 3px solid #00E784; border-radius: 10px; padding: 1rem 1.25rem;'
@@ -490,6 +488,8 @@ if explorer_page == "Overview":
         '</p></div>',
         unsafe_allow_html=True,
     )
+
+    _display_mood_meter()
 
     with st.container(border=True):
         m1, m2, m3, m4 = st.columns(4)
