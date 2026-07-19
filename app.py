@@ -476,6 +476,25 @@ if explorer_page == "Overview":
 
     _display_mood_meter()
 
+    st.markdown(
+        '<div style="background: linear-gradient(135deg, #0A2A52 0%, #0F3460 100%);'
+        'border-left: 3px solid #00E784; border-radius: 10px; padding: 1rem 1.25rem;'
+        'margin-bottom: 1rem; color: #E8F4F8; font-size: 0.88rem; line-height: 1.6;">'
+        '<span style="color: #00E784; font-weight: 700; font-size: 0.8rem; '
+        'text-transform: uppercase; letter-spacing: 0.05em;">Auto-Analyst</span>'
+        '<p style="margin: 0.35rem 0 0;">'
+        'An AI-powered demand planning dashboard for Careem Grocery that simulates a '
+        'multi-agent executive <b style="color:#00E784;">War Room</b>. Three AI personas &mdash; '
+        '<b style="color:#00E784;">Careem</b> (S&OP), <b style="color:#F5A623;">Rashid</b> (CFO), '
+        'and <b style="color:#3B82F6;">Noor</b> (Ops) &mdash; analyze live supply chain data '
+        'with Emirati voices and region-inspired proverbs. The platform generates charts and '
+        'interactive Dubai store maps on command, detects anomalies, runs scenario simulations, '
+        'and presents RAG scorecards. Agents autonomously consult each other, mirroring how a '
+        'real S&OP team operates.'
+        '</p></div>',
+        unsafe_allow_html=True,
+    )
+
     with st.container(border=True):
         m1, m2, m3, m4 = st.columns(4)
         with m1:
