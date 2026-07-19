@@ -327,6 +327,7 @@ with st.sidebar:
          "Inventory health", "Forecast", "S&OP Scorecard"],
         label_visibility="collapsed",
         index=0,
+        key="explorer_page",
     )
     st.divider()
     boardroom = st.toggle("Boardroom mode", help="Clean, presentation-ready view")
@@ -426,8 +427,9 @@ def _display_mood_meter():
     }
     suggestion = mood.get("suggestion", "")
     bg = mood_bg.get(mood["emoji"], "#D6FFEA")
+
     st.markdown(
-        f'<div style="background:{bg};border-radius:8px;padding:0.5rem 1rem;margin-bottom:0.5rem;'
+        f'<div style="background:{bg};border-radius:8px;padding:0.5rem 1rem;'
         f'color:#001942;">'
         f'<div style="display:flex;align-items:center;gap:0.5rem;font-size:0.95rem;">'
         f'<span style="font-size:1.4rem;">{mood["emoji"]}</span>'
@@ -438,6 +440,12 @@ def _display_mood_meter():
         f'</div>',
         unsafe_allow_html=True,
     )
+
+    _, btn_col = st.columns([9, 1])
+    with btn_col:
+        if st.button(":material/smart_toy:", help="Jump to the War Room", key="mood_to_chat", use_container_width=True):
+            st.session_state.explorer_page = "Talk to Careem"
+            st.rerun()
 
 
 def _run_agent_turn(agent_key, user_prompt, extra_context=None):

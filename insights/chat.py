@@ -447,7 +447,7 @@ def compute_careem_mood(anomalies, scorecard, inv, flags, tiered):
     """Return Careem's current mood with diagnosis and next-step suggestion."""
     mood = {
         "emoji": "😎",
-        "label": "Chilling",
+        "label": "Careem Mood · Chilling",
         "suggestion": "All metrics look healthy. Careem is ready for your questions.",
     }
 
@@ -486,7 +486,7 @@ def compute_careem_mood(anomalies, scorecard, inv, flags, tiered):
     if critical_flags >= 4 or anomaly_rate > 25:
         mood = {
             "emoji": "🤯",
-            "label": "Can't unsee this",
+            "label": "Careem Mood · Can't unsee this",
             "suggestion": (
                 f"{critical_flags} critical flags, {s1_count} S1 items, "
                 f"{anomaly_rate}% anomaly days. "
@@ -497,7 +497,7 @@ def compute_careem_mood(anomalies, scorecard, inv, flags, tiered):
     elif critical_flags >= 2 or anomaly_rate > 20 or avg_service < 80:
         mood = {
             "emoji": "😤",
-            "label": "Stressed",
+            "label": "Careem Mood · Stressed",
             "suggestion": (
                 f"{critical_flags} critical flags, service at {avg_service:.0f}%. "
                 "Check Inventory Health for the S1 items table. "
@@ -507,7 +507,7 @@ def compute_careem_mood(anomalies, scorecard, inv, flags, tiered):
     elif high_flags >= 5 or anomaly_rate > 10 or health_pct < 50:
         mood = {
             "emoji": "😬",
-            "label": "Concerned",
+            "label": "Careem Mood · Concerned",
             "suggestion": (
                 f"{high_flags} high-risk flags, health at {health_pct:.0f}%. "
                 "Review the S&OP Scorecard for red items. "
@@ -517,7 +517,7 @@ def compute_careem_mood(anomalies, scorecard, inv, flags, tiered):
     elif anomaly_rate > 5 or health_pct < 70 or avg_service < 95:
         mood = {
             "emoji": "😐",
-            "label": "Cautious",
+            "label": "Careem Mood · Cautious",
             "suggestion": (
                 f"Health at {health_pct:.0f}%, {anomaly_rate}% anomaly days. "
                 "Check the Forecast page for demand trends. "
@@ -527,7 +527,7 @@ def compute_careem_mood(anomalies, scorecard, inv, flags, tiered):
     elif health_pct < 85:
         mood = {
             "emoji": "🙂",
-            "label": "Optimistic",
+            "label": "Careem Mood · Optimistic",
             "suggestion": (
                 f"Health at {health_pct:.0f}% — solid but not perfect. "
                 "A few items in amber. Ask Careem: \"Any early warnings?\""
