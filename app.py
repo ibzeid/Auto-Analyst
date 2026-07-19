@@ -32,6 +32,13 @@ st.set_page_config(
     layout="wide",
 )
 
+if "_jump_page" not in st.session_state:
+    st.session_state._jump_page = None
+
+if st.session_state._jump_page:
+    st.session_state.page_radio = st.session_state._jump_page
+    st.session_state._jump_page = None
+
 st.markdown("""
 <style>
     .stApp { background: #001942; }
@@ -449,7 +456,7 @@ def _display_mood_meter():
             unsafe_allow_html=True,
         )
         if st.button(":material/smart_toy: Talk to agents", help="Jump to the War Room", key="mood_to_chat", use_container_width=True):
-            st.session_state.page_radio = "Talk to Careem"
+            st.session_state._jump_page = "Talk to Careem"
             st.rerun()
 
 
