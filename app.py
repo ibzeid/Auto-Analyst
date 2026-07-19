@@ -433,24 +433,25 @@ def _display_mood_meter():
     suggestion = mood.get("suggestion", "")
     bg = mood_bg.get(mood["emoji"], "#D6FFEA")
 
-    st.markdown(
-        f'<div style="background:{bg};border-radius:8px;padding:0.5rem 1rem;'
-        f'color:#001942;">'
-        f'<div style="display:flex;align-items:center;gap:0.5rem;font-size:0.95rem;">'
-        f'<span style="font-size:1.4rem;">{mood["emoji"]}</span>'
-        f'<span><strong>{mood["label"]}</strong></span>'
-        f'</div>'
-        f'<div style="font-size:0.82rem;margin-top:0.2rem;line-height:1.45;'
-        f'padding-left:2.2rem;">{suggestion}</div>'
-        f'</div>',
-        unsafe_allow_html=True,
-    )
-
-    _, btn_col = st.columns([9, 1])
+    mood_col, btn_col = st.columns([6, 1], gap="small", vertical_alignment="center")
+    with mood_col:
+        st.markdown(
+            f'<div style="background:{bg};border-radius:8px;padding:0.5rem 1rem;'
+            f'color:#001942;">'
+            f'<div style="display:flex;align-items:center;gap:0.5rem;font-size:0.95rem;">'
+            f'<span style="font-size:1.4rem;">{mood["emoji"]}</span>'
+            f'<span><strong>{mood["label"]}</strong></span>'
+            f'</div>'
+            f'<div style="font-size:0.82rem;margin-top:0.2rem;line-height:1.45;'
+            f'padding-left:2.2rem;">{suggestion}</div>'
+            f'</div>',
+            unsafe_allow_html=True,
+        )
     with btn_col:
         if st.button(":material/smart_toy:", help="Jump to the War Room", key="mood_to_chat", use_container_width=True):
             st.session_state.nav_to = "Talk to Careem"
             st.rerun()
+        st.caption("Chat with agents")
 
 
 def _run_agent_turn(agent_key, user_prompt, extra_context=None):
