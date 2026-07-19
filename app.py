@@ -428,7 +428,7 @@ def _display_mood_meter():
     suggestion = mood.get("suggestion", "")
     bg = mood_bg.get(mood["emoji"], "#D6FFEA")
 
-    mood_col, btn_col = st.columns([6, 1], gap="small", vertical_alignment="center")
+    mood_col, btn_col = st.columns([5, 2], gap="small", vertical_alignment="center")
     with mood_col:
         st.markdown(
             f'<div style="background:{bg};border-radius:8px;padding:0.5rem 1rem;'
@@ -443,10 +443,14 @@ def _display_mood_meter():
             unsafe_allow_html=True,
         )
     with btn_col:
-        if st.button(":material/smart_toy:", help="Jump to the War Room", key="mood_to_chat", use_container_width=True):
+        st.markdown(
+            '<div style="text-align:center;font-size:0.65rem;color:#94B8C4;margin-bottom:2px;">'
+            'Click to chat</div>',
+            unsafe_allow_html=True,
+        )
+        if st.button(":material/smart_toy: Talk to agents", help="Jump to the War Room", key="mood_to_chat", use_container_width=True):
             st.session_state.page_radio = "Talk to Careem"
             st.rerun()
-        st.caption("Chat with agents")
 
 
 def _run_agent_turn(agent_key, user_prompt, extra_context=None):
