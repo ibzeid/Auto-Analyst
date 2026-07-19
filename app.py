@@ -32,6 +32,9 @@ st.set_page_config(
     layout="wide",
 )
 
+if "nav_to" not in st.session_state:
+    st.session_state.nav_to = None
+
 st.markdown("""
 <style>
     .stApp { background: #001942; }
@@ -365,8 +368,6 @@ if "chat_initialized" not in st.session_state:
     st.session_state.chat_initialized = False
 if "active_agent" not in st.session_state:
     st.session_state.active_agent = "careem"
-if "nav_to" not in st.session_state:
-    st.session_state.nav_to = None
 
 
 def _chat_ctx():
