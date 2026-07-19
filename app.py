@@ -363,6 +363,8 @@ if "chat_initialized" not in st.session_state:
     st.session_state.chat_initialized = False
 if "active_agent" not in st.session_state:
     st.session_state.active_agent = "careem"
+if "explorer_page" not in st.session_state:
+    st.session_state.explorer_page = "Overview"
 
 
 def _chat_ctx():
