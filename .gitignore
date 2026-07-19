@@ -217,5 +217,7 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 
-# latex code
-docs/presentation.tex
+# LaTeX build artifacts
+docs/*.aux
+docs/*.log
+docs/*.out

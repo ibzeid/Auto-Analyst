@@ -1,0 +1,304 @@
+% Auto-Analyst — Careem Grocery Presentation
+% Compiled with pdflatex
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{parskip}
+
+\geometry{margin=2.2cm, top=2.5cm, bottom=2cm}
+
+% ── Careem brand colors ──
+\definecolor{CareemGreen}{HTML}{00E784}
+\definecolor{MidnightBlue}{HTML}{001942}
+\definecolor{DarkCard}{HTML}{0A2A52}
+\definecolor{LightText}{HTML}{E8F4F8}
+\definecolor{MidText}{HTML}{94B8C4}
+\definecolor{RashidGold}{HTML}{F5A623}
+\definecolor{NoorBlue}{HTML}{3B82F6}
+\definecolor{DarkEmerald}{HTML}{00493E}
+
+% ── Page style ──
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textcolor{MidText}{\small Auto-Analyst \textbar{} Careem Grocery}}
+\fancyhead[R]{\textcolor{MidText}{\small Demand Planning Dashboard}}
+\fancyfoot[C]{\textcolor{MidText}{\small ---\,\thepage\,---}}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{CareemGreen}\leaders\hrule height 1pt\hfill}}
+
+% ── Section styling ──
+\titleformat{\section}
+  {\Large\bfseries\color{CareemGreen}}
+  {}{0em}
+  {}
+  [\vspace{-0.5em}\textcolor{CareemGreen}{\rule{\textwidth}{1.5pt}}]
+
+\titleformat{\subsection}
+  {\large\bfseries\color{MidnightBlue}}
+  {}{0em}
+  {}
+
+% ── Hyperlinks ──
+\hypersetup{
+  colorlinks=true,
+  linkcolor=CareemGreen,
+  urlcolor=CareemGreen,
+  citecolor=MidText,
+}
+
+% ── Info box ──
+\newtcolorbox{infobox}{
+  colback=MidnightBlue,
+  colframe=CareemGreen,
+  leftrule=3mm,
+  arc=4pt,
+  boxrule=0.5pt,
+  fontupper=\color{LightText},
+}
+
+% ── Agent card ──
+\newcommand{\agentcard}[4]{%
+  \begin{tcolorbox}[
+    colback=DarkCard,
+    colframe=#3,
+    leftrule=0pt,
+    toprule=2pt,
+    arc=6pt,
+    boxrule=1pt,
+    fontupper=\color{LightText},
+    title={\centering\color{#3}\textbf{#1}\quad\textit{\footnotesize #2}},
+    coltitle=LightText,
+    halign title=center,
+    before=\vspace{2pt},
+    after=\vspace{2pt},
+  ]
+  \footnotesize #4
+  \end{tcolorbox}
+}
+
+\begin{document}
+
+% ═══════════════════════════════════════════════════════════════════════════
+% COVER PAGE
+% ═══════════════════════════════════════════════════════════════════════════
+\thispagestyle{empty}
+\begin{center}
+\vspace*{3cm}
+
+{\fontsize{42}{48}\selectfont\color{CareemGreen}\textbf{Auto-Analyst}}\\[0.5cm]
+{\Large\color{DarkEmerald}Demand Planning Dashboard for Careem Grocery}\\[1.5cm]
+
+{\color{MidText}\rule{0.5\textwidth}{1pt}}\\[1.5cm]
+
+{\large\color{DarkEmerald}Multi-Agent AI War Room \textbullet{} Interactive Maps \textbullet{} S\&OP Scorecards}\\[0.4cm]
+{\large\color{DarkEmerald}Real-Time Charts \textbullet{} Scenario Simulation \textbullet{} Anomaly Detection}\\[2.5cm]
+
+{\footnotesize\color{MidText}Built with Streamlit \textbullet{} Altair \textbullet{} Folium \textbullet{} OpenAI-Compatible LLMs}\\[0.3cm]
+{\footnotesize\color{MidText}GitHub: \url{https://github.com/ibzeid/Auto-Analyst}}
+\end{center}
+
+\vfill
+\begin{center}
+\textcolor{MidText}{\rule{0.3\textwidth}{0.5pt}}
+\end{center}
+\newpage
+
+% ═══════════════════════════════════════════════════════════════════════════
+% EXECUTIVE SUMMARY
+% ═══════════════════════════════════════════════════════════════════════════
+\section{Executive Summary}
+
+\begin{infobox}
+\textbf{Auto-Analyst} is an AI-powered demand planning dashboard for Careem Grocery that simulates a multi-agent executive War Room. Three AI personas --- \textcolor{CareemGreen}{\textbf{Careem}} (S\&OP Lead), \textcolor{RashidGold}{\textbf{Rashid}} (CFO), and \textcolor{NoorBlue}{\textbf{Noor}} (Ops Lead) --- analyze live supply chain data through their domain lens, each with an Emirati voice and region-inspired proverbs. The platform generates charts and interactive Dubai store maps on command via function-calling tools, detects anomalies, runs scenario simulations, and presents RAG scorecards across five dark stores. Agents autonomously consult each other through a \texttt{CONSULT} mechanism, creating a collaborative decision environment that mirrors how a real S\&OP team operates.
+\end{infobox}
+
+% ═══════════════════════════════════════════════════════════════════════════
+% THE WAR ROOM
+% ═══════════════════════════════════════════════════════════════════════════
+\section{The War Room --- Three AI Personas}
+
+\vspace{0.5cm}
+\begin{tabularx}{\textwidth}{@{}>{\centering\arraybackslash}p{0.33\textwidth}>{\centering\arraybackslash}p{0.33\textwidth}>{\centering\arraybackslash}p{0.33\textwidth}@{}}
+\agentcard{Careem}{S\&OP Lead}{CareemGreen}{%
+  \textbf{Voice:} ``Captain''\\[2pt]
+  \textbf{Domain:} Demand planning, inventory strategy, forecasting, risk assessment\\[2pt]
+  \textbf{Proverb:} \textit{``Trust Allah but tie your camel --- and by camel I mean your safety stock.''}\\[2pt]
+  \textbf{Tools:} Charts \& maps\\[2pt]
+  \textbf{Consults:} Rashid (margins), Noor (ops)
+}
+&
+\agentcard{Rashid}{CFO}{RashidGold}{%
+  \textbf{Voice:} ``Partner''\\[2pt]
+  \textbf{Domain:} Margins, unit economics, ROI, cost structure\\[2pt]
+  \textbf{Proverb:} \textit{``Revenue is vanity, margin is sanity.''}\\[2pt]
+  \textbf{Tools:} Charts \& maps\\[2pt]
+  \textbf{Triggered by:} \texttt{[CONSULT: rashid]}
+}
+&
+\agentcard{Noor}{Ops Lead}{NoorBlue}{%
+  \textbf{Voice:} ``Team''\\[2pt]
+  \textbf{Domain:} Dark stores, fleet, staffing, cold chain, delivery SLA\\[2pt]
+  \textbf{Proverb:} \textit{``You can't deliver from an empty shelf.''}\\[2pt]
+  \textbf{Tools:} Charts \& maps\\[2pt]
+  \textbf{Triggered by:} \texttt{[CONSULT: noor]}
+}
+\end{tabularx}
+
+\subsection{How Agents Cooperate}
+\begin{itemize}[leftmargin=*]
+  \item \textbf{@mention override}: Type \texttt{@rashid} or \texttt{@noor} in chat to redirect your question to a specific agent
+  \item \textbf{Autonomous consultation}: Careem ends his response with \texttt{[CONSULT: rashid]} --- the system automatically routes context to that agent, who responds in a separate colored chat bubble
+  \item \textbf{Domain guardrails}: Each agent defers to the others when asked outside their expertise --- \textit{``That's Careem's turf, partner.''}
+\end{itemize}
+
+% ═══════════════════════════════════════════════════════════════════════════
+% KEY FEATURES
+% ═══════════════════════════════════════════════════════════════════════════
+\section{Key Features}
+
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.3\textwidth}>{\raggedright\arraybackslash}p{0.7\textwidth}@{}}
+\toprule
+\multicolumn{1}{c}{\textbf{Category}} & \multicolumn{1}{c}{\textbf{Capabilities}} \\
+\midrule
+Multi-Agent Chat & 3 AI personas with unique voices, proverbs, avatars, and color-coded chat bubbles \\
+\addlinespace
+Function-Calling Tools & Agents call \texttt{generate\_plot} (9 chart types) and \texttt{show\_map} (interactive Dubai map) \\
+\addlinespace
+Store Map & 5 Dubai dark stores on Folium map --- RAG health pins, delivery zones, click pop-ups \\
+\addlinespace
+Live Mood Meter & Careem's emotional state updates with specific diagnostic details --- shows exact flag counts, health \%, and actionable ``what to do now'' guidance \\
+\addlinespace
+Boardroom Mode & Clean presentation view of the full multi-agent conversation for S\&OP meetings \\
+\addlinespace
+Overview Dashboard & KPI cards, demand trend, category breakdown, mood meter \\
+\addlinespace
+Data Explorer & 7 analytics pages --- Category \& Stores, Demand Patterns, Inventory Health, Forecast, S\&OP Scorecard \\
+\addlinespace
+Anomaly Detection & Statistical flagging with alert cards and trend visualization \\
+\addlinespace
+Scenario Simulation & What-if analysis for promo boost, demand growth, safety stock changes \\
+\addlinespace
+Dark Theme & Midnight Blue (\#001942) with Careem Green (\#00E784) accents \\
+\bottomrule
+\end{tabularx}
+
+% ═══════════════════════════════════════════════════════════════════════════
+% HOW IT WORKS
+% ═══════════════════════════════════════════════════════════════════════════
+\section{How It Works}
+
+\subsection{Architecture}
+\vspace{0.3cm}
+\begin{tcolorbox}[colback=DarkCard, colframe=CareemGreen, leftrule=3mm, arc=4pt,
+  fontupper=\color{LightText}\footnotesize\ttfamily]
+\textcolor{CareemGreen}{\textbf{Auto-Analyst/}}\\
+\quad\textcolor{CareemGreen}{app.py} \hspace{3.6cm} Streamlit entry point --- sidebar, pages, chat loop\\
+\quad\textcolor{CareemGreen}{insights/}\\
+\quad\quad agents.py \hspace{2.4cm} 3 agent configs, prompts, avatars, @mention/consult parsers\\
+\quad\quad chat.py \hspace{3cm} LLM orchestration, function-calling tools, chart/map generation\\
+\quad\textcolor{CareemGreen}{analysis/}\\
+\quad\quad stats.py \hspace{3cm} Summary stats, category/store performance, promo lift\\
+\quad\quad forecast.py \hspace{2.4cm} 14-day rolling forecast per store with confidence tiers\\
+\quad\quad inventory.py \hspace{2.1cm} Service level, safety stock, reorder points, risk flags\\
+\quad\quad scorecard.py \hspace{2cm} RAG scorecard --- per-store health percentages\\
+\quad\quad scenario.py \hspace{2.1cm} What-if scenario runner --- base vs projected deltas\\
+\quad\quad anomaly.py \hspace{2.15cm} Statistical anomaly detection on demand patterns\\
+\quad\quad mapping.py \hspace{2.1cm} Interactive Folium map --- store coords, delivery zones\\
+\quad\textcolor{CareemGreen}{data/}\\
+\quad\quad generate\_data.py \hspace{1.5cm} Synthetic grocery demand generator (5 stores, 25 SKUs)\\
+\quad\quad sample\_grocery\_data.csv \hspace{0.8cm} 22,500 rows --- ready to use\\
+\quad\textcolor{CareemGreen}{assets/avatars/} \hspace{2.1cm} Agent headshot PNGs \& SVG fallbacks\\
+\quad\textcolor{CareemGreen}{requirements.txt} \hspace{2cm} Streamlit, Pandas, Altair, Folium, HTTPx
+\end{tcolorbox}
+
+\subsection{Data Flow}
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Data ingestion}: Synthetic 6-month grocery dataset (or uploaded CSV) loaded via Pandas
+  \item \textbf{Analysis pipeline}: 8 analysis modules compute stats, forecasts, inventory health, risk flags, scorecards, anomalies
+  \item \textbf{Context snapshot}: Aggregated analysis serialized into a compact text context for the LLM
+  \item \textbf{Agent loop}: User message $\rightarrow$ selected agent's system prompt + context $\rightarrow$ LLM API call $\rightarrow$ response + optional tool calls (charts, maps) + optional \texttt{[CONSULT:]} triggers $\rightarrow$ consulting agent responds
+  \item \textbf{Rendering}: Text, Altair charts, and Folium maps displayed inline in color-coded chat bubbles
+\end{enumerate}
+
+% ═══════════════════════════════════════════════════════════════════════════
+% LIVE DEMO & SETUP
+% ═══════════════════════════════════════════════════════════════════════════
+\section{Live Demo \& Setup}
+
+\subsection{Public Access}
+\begin{itemize}[leftmargin=*]
+  \item \textbf{GitHub}: \url{https://github.com/ibzeid/Auto-Analyst}
+  \item \textbf{Live Demo}: Deployable on Streamlit Community Cloud --- one-click deploy from the repo
+  \item \textbf{Dataset}: Synthetic grocery data included (22,500 rows, 5 stores, 25 SKUs, 5 categories)
+  \item \textbf{Zero-config}: Charts, maps, and analysis work without any API key --- visitors add their own key in the sidebar to unlock AI agents
+\end{itemize}
+
+\subsection{Local Setup}
+\begin{tcolorbox}[colback=DarkCard, colframe=CareemGreen, leftrule=3mm, arc=4pt,
+  fontupper=\color{LightText}\footnotesize\ttfamily]
+\$ git clone https://github.com/ibzeid/Auto-Analyst.git\\
+\$ cd Auto-Analyst\\
+\$ uv venv \&\& source .venv/bin/activate \# or .venv\textbackslash Scripts\textbackslash activate\\
+\$ uv pip install -r requirements.txt\\
+\$ streamlit run app.py \# Open http://localhost:8501
+\end{tcolorbox}
+
+\vspace{0.5cm}
+\subsection{Supported LLM Providers}
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+\textbf{Provider} & \textbf{Base URL} & \textbf{Recommended Model} \\
+\midrule
+OpenAI & \texttt{api.openai.com/v1} & gpt-4o-mini \\
+DeepSeek & \texttt{api.deepseek.com} & deepseek-v4-flash \\
+Anthropic (via OpenRouter) & \texttt{openrouter.ai/api/v1} & claude-sonnet-4 \\
+Groq & \texttt{api.groq.com/openai/v1} & llama-3.3-70b-versatile \\
+Together & \texttt{api.together.xyz/v1} & llama-3.3-70B-instruct \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% ═══════════════════════════════════════════════════════════════════════════
+% JOB FIT
+% ═══════════════════════════════════════════════════════════════════════════
+\section{Senior Supply Chain Manager --- Job Fit}
+
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.42\textwidth}>{\raggedright\arraybackslash}p{0.58\textwidth}@{}}
+\toprule
+\multicolumn{1}{c}{\textbf{JD Requirement}} & \multicolumn{1}{c}{\textbf{Demonstrated by}} \\
+\midrule
+Forecasting \& Modelling & 14-day rolling forecast per store with confidence tiers \\
+\addlinespace
+Demand Variability \& Scenario Planning & Weekday patterns, promo lift, what-if scenario engine \\
+\addlinespace
+S\&OP Process Leadership & Multi-agent War Room simulating cross-functional review \\
+\addlinespace
+Inventory Optimisation & Safety stock, reorder points, service level tracking, RAG scorecard \\
+\addlinespace
+Data \& Tooling & Pandas, Altair, Folium, multi-provider LLM integration, Streamlit \\
+\addlinespace
+Insight \& Communication & Narrative briefs in character voice, boardroom presentation mode \\
+\addlinespace
+Innovation \& AI & Function-calling agents, autonomous consultation, real-time tool use \\
+\bottomrule
+\end{tabularx}
+
+\vfill
+\begin{center}
+\textcolor{MidText}{\small Auto-Analyst --- Built for the Careem Grocery challenge}\\
+\textcolor{MidText}{\small \url{https://github.com/ibzeid/Auto-Analyst}}
+\end{center}
+
+\end{document}
