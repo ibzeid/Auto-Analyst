@@ -327,8 +327,10 @@ with st.sidebar:
          "Inventory health", "Forecast", "S&OP Scorecard"],
         label_visibility="collapsed",
         index=0,
-        key="explorer_page",
     )
+    if st.session_state.nav_to:
+        explorer_page = st.session_state.nav_to
+        st.session_state.nav_to = None
     st.divider()
     boardroom = st.toggle("Boardroom mode", help="Clean, presentation-ready view")
     st.caption("Built for the Careem challenge")
@@ -363,8 +365,8 @@ if "chat_initialized" not in st.session_state:
     st.session_state.chat_initialized = False
 if "active_agent" not in st.session_state:
     st.session_state.active_agent = "careem"
-if "explorer_page" not in st.session_state:
-    st.session_state.explorer_page = "Overview"
+if "nav_to" not in st.session_state:
+    st.session_state.nav_to = None
 
 
 def _chat_ctx():
@@ -446,7 +448,7 @@ def _display_mood_meter():
     _, btn_col = st.columns([9, 1])
     with btn_col:
         if st.button(":material/smart_toy:", help="Jump to the War Room", key="mood_to_chat", use_container_width=True):
-            st.session_state.explorer_page = "Talk to Careem"
+            st.session_state.nav_to = "Talk to Careem"
             st.rerun()
 
 
